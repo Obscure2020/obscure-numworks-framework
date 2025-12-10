@@ -20,7 +20,6 @@ CFLAGS += -ggdb
 LDFLAGS = -Wl,--relocatable
 LDFLAGS += -nostartfiles
 LDFLAGS += --specs=nano.specs
-# LDFLAGS += --specs=nosys.specs # Alternatively, use full-fledged newlib
 
 ifeq ($(LINK_GC),1)
 CFLAGS += -fdata-sections -ffunction-sections
@@ -37,22 +36,6 @@ endif
 
 .PHONY: build
 build: $(BUILD_DIR)/app.nwa
-
-.PHONY: check
-check: $(BUILD_DIR)/app.bin
-
-.PHONY: run
-run: $(BUILD_DIR)/app.nwa src/input.txt
-	@echo "INSTALL $<"
-	$(Q) $(NWLINK) install-nwa --external-data src/input.txt $<
-
-$(BUILD_DIR)/%.bin: $(BUILD_DIR)/%.nwa src/input.txt
-	@echo "BIN     $@"
-	$(Q) $(NWLINK) nwa-bin --external-data src/input.txt $< $@
-
-$(BUILD_DIR)/%.elf: $(BUILD_DIR)/%.nwa src/input.txt
-	@echo "ELF     $@"
-	$(Q) $(NWLINK) nwa-elf --external-data src/input.txt $< $@
 
 $(BUILD_DIR)/app.nwa: $(call object_for,$(src)) $(BUILD_DIR)/icon.o
 	@echo "LD      $@"
