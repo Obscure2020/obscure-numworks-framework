@@ -1,4 +1,18 @@
-# Sample C app for Epsilon
+# Obscure's Epsilon App Framework
+
+This repo is to be Joey Sodergren's design space for creating a sort of base-level framework upon which games can be built for the Numworks calculators, running the Epsilon interface.
+
+Here are some personal notes which Joey hasn't had the time to explain yet, but wants to save here for safe-keeping:
+```
+sudo apt install gcc-arm-none-eabi binutils-arm-none-eabi npm -y
+sudo apt install openjdk-25-jdk -y
+```
+
+The rest of this document is all old stuff from the Numworks guys, which Joey is either still reading, or is too lazy to strip out yet.
+
+-----
+
+## Sample C app for Epsilon
 
 [![Build](https://github.com/numworks/epsilon-sample-app-c/actions/workflows/build.yml/badge.svg)](https://github.com/numworks/epsilon-sample-app-c/actions/workflows/build.yml)
 
