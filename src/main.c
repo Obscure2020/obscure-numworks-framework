@@ -1,4 +1,5 @@
 #include <eadk.h>
+#include "sprites.h"
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -69,5 +70,6 @@ int main(int argc, char * argv[]) {
   draw_random_colorful_rectangles();
   draw_random_buffer();
   eadk_display_draw_string("Version 001", (eadk_point_t){0, 0}, true, eadk_color_black, eadk_color_white);
+  eadk_display_push_rect((eadk_rect_t){20, 20, electrode.width, electrode.height}, electrode.pixels);
   move_pointer();
 }
