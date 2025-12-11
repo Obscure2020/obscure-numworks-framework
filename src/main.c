@@ -1,7 +1,7 @@
 #include <eadk.h>
 #include "sprites.h"
 
-const char eadk_app_name[] __attribute__((section(".rodata.eadk_app_name"))) = "Bounce002";
+const char eadk_app_name[] __attribute__((section(".rodata.eadk_app_name"))) = "Bounce003";
 const uint32_t eadk_api_level  __attribute__((section(".rodata.eadk_api_level"))) = 0;
 
 eadk_color_t row_buffer[EADK_SCREEN_WIDTH];
@@ -15,8 +15,8 @@ typedef struct {
     const sprite_t *sprite_ptr;
 } sprite_instance_t;
 
-sprite_instance_t dudes[] = {(sprite_instance_t){0, 0, 1, 1, &electrode}, (sprite_instance_t){50, 10, 2, 1, &onix}};
-#define NUM_OF_DUDES 2
+sprite_instance_t dudes[] = {(sprite_instance_t){0, 0, 1, 1, &electrode}, (sprite_instance_t){50, 10, 2, 1, &onix}, (sprite_instance_t){100, 20, -2, 3, &pikachu}};
+#define NUM_OF_DUDES 3
 
 void update_screen(){
     for(int y=0; y<EADK_SCREEN_HEIGHT; y++){
