@@ -41,8 +41,9 @@ class ImgProc{
         for(int i=0; i<args.length; i++){
             if(i != 0) System.out.println();
             BufferedImage img = images[i];
-            String name = names[i];
-            String data_name = name + "_data";
+            BufferedImage preview = new BufferedImage(img.getWidth(), img.getHeight(), BufferedImage.TYPE_INT_ARGB);
+            final String name = names[i];
+            final String data_name = name + "_data";
             HashSet<Integer> color_set = new HashSet<>();
             for(int y=0; y<img.getHeight(); y++){
                 for(int x=0; x<img.getWidth(); x++){
@@ -55,7 +56,8 @@ class ImgProc{
             while(color_set.contains(collapse_color(back_color))){
                 back_color -= 8;
             }
-            String back_color_str = "0x" + hf.toHexDigits(collapse_color(back_color)).substring(4);
+            final String back_color_str = "0x" + hf.toHexDigits(collapse_color(back_color)).substring(4);
+            final int back_color_reduced = reduce_color(back_color);
             System.out.print("const eadk_color_t " + data_name + "[] = {");
             for(int y=0; y<img.getHeight(); y++){
                 for(int x=0; x<img.getWidth(); x++){
@@ -66,14 +68,17 @@ class ImgProc{
                     final int alpha = color >>> 24;
                     if(alpha == 0xFF){
                         System.out.print("0x" + hf.toHexDigits(collapse_color(img.getRGB(x, y))).substring(4));
+                        preview.setRGB(x, y, reduce_color(color));
                     } else {
                         System.out.print(back_color_str);
+                        preview.setRGB(x, y, back_color_reduced);
                     }
                 }
             }
             System.out.println("};");
             System.out.println();
             System.out.println("const sprite_t " + name + " = {" + img.getWidth() + ", " + img.getHeight() + ", " + back_color_str + ", " + data_name + "};");
+            ImageIO.write(preview, "PNG", new File("preview_" + name + ".png"));
         }
     }
 }
