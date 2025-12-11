@@ -15,7 +15,7 @@ typedef struct {
     const sprite_t *sprite_ptr;
 } sprite_instance_t;
 
-sprite_instance_t dudes[] = {(sprite_instance_t){0, 0, 1, 1, &electrode}, (sprite_instance_t){50, 10, 1, 1, &onix}};
+sprite_instance_t dudes[] = {(sprite_instance_t){0, 0, 1, 1, &electrode}, (sprite_instance_t){50, 10, 2, 1, &onix}};
 #define NUM_OF_DUDES 2
 
 void update_screen(){
@@ -47,17 +47,11 @@ void process_motion(){
     for(int i=0; i<NUM_OF_DUDES; i++){
         dudes[i].x += dudes[i].vel_x;
         dudes[i].y += dudes[i].vel_y;
-        if((dudes[i].x + dudes[i].sprite_ptr->width) >= EADK_SCREEN_WIDTH){
-            dudes[i].vel_x = -1;
+        if((dudes[i].x <= 0) || ((dudes[i].x + dudes[i].sprite_ptr->width) >= EADK_SCREEN_WIDTH)){
+            dudes[i].vel_x *= -1;
         }
-        if(dudes[i].x <= 0){
-            dudes[i].vel_x = 1;
-        }
-        if((dudes[i].y + dudes[i].sprite_ptr->height) >= EADK_SCREEN_HEIGHT){
-            dudes[i].vel_y = -1;
-        }
-        if(dudes[i].y <= 0){
-            dudes[i].vel_y = 1;
+        if((dudes[i].y <= 0) || ((dudes[i].y + dudes[i].sprite_ptr->height) >= EADK_SCREEN_HEIGHT)){
+            dudes[i].vel_y *= -1;
         }
     }
 }
